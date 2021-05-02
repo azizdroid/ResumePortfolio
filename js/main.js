@@ -3,6 +3,18 @@ AOS.init({
   easing: "slide",
 });
 
+function sendMail(params) {
+  var tempParams = {
+    from_name: document.getElementById("toname").value,
+    to_name: document.getElementById("tomail").value,
+    message: document.getElementById("message").value,
+  };
+
+  emailjs.send("gmail", "template_iukhi7e", tempParams).then(function (res) {
+    console.log("success", res.status);
+  });
+}
+
 (function ($) {
   "use strict";
 
@@ -423,25 +435,4 @@ $(function () {
   function percentageToDegrees(percentage) {
     return (percentage / 100) * 360;
   }
-  (function () {
-    // https://dashboard.emailjs.com/admin/integration
-    emailjs.init("user_Ib4EpiSfCEDgGa5Bc8pDV");
-  })();
-  window.onsubmit = function () {
-    document
-      .getElementById("contact-form")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
-        // generate a five digit number for the contact_number variable
-        // these IDs from the previous steps
-        emailjs.sendForm("contact_service", "contact_form", this).then(
-          function () {
-            console.log("SUCCESS!");
-          },
-          function (error) {
-            console.log("FAILED...", error);
-          }
-        );
-      });
-  };
 });
